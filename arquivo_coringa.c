@@ -8,11 +8,11 @@ typedef struct No {
 	struct No *prox;
 } TipoNo;
 
-typedef struct NoDuplEnc { 
-     int chave; 
-     struct no *ant; 
-     struct no *prox; 
- } TNoDuplEnc;
+typedef struct NoDuplEnc { 
+     int chave; 
+     struct no *ant; 
+     struct no *prox; 
+ } TNoDuplEnc;
 
 TipoNo *alocaNoSimples(int k)
 {
@@ -375,81 +375,86 @@ void removePilha(TipoNo **paux)//pop
 	}   
 }
 
-TNoDuplEnc *insereListaDuplEnc(TNoDuplEnc *p, int chave) { 
-     //assert(p); 
-     TNoDuplEnc *novo = (TNoDuplEnc *) malloc(sizeof(TNoDuplEnc)); 
-     novo->chave = chave; 
-     novo->prox = p; 
-     novo->ant = NULL; 
+TNoDuplEnc *insereListaDuplEnc(TNoDuplEnc *p, int chave) { 
+     //assert(p); 
+     TNoDuplEnc *novo = (TNoDuplEnc *) malloc(sizeof(TNoDuplEnc)); 
+     novo->chave = chave; 
+     novo->prox = p; 
+     novo->ant = NULL; 
   
-     if(p!=NULL) { 
-         p->ant = novo; 
-     } 
+     if(p!=NULL) { 
+         p->ant = novo; 
+     } 
   
-     return novo; 
+     return novo; 
  }
 
-void insereListaDuplEnc2(TNoDuplEnc **p, int chave) { 
-     //assert(p); 
-     TNoDuplEnc *novo = (TNoDuplEnc *) malloc(sizeof(TNoDuplEnc)); 
-     novo->chave = chave; 
-     novo->prox = *p; 
-     novo->ant = NULL; 
+void insereListaDuplEnc2(TNoDuplEnc **p, int chave) { 
+     //assert(p); 
+     TNoDuplEnc *novo = (TNoDuplEnc *) malloc(sizeof(TNoDuplEnc)); 
+     novo->chave = chave; 
+     novo->prox = *p; 
+     novo->ant = NULL; 
   
-     if(*p!=NULL) { 
-         (*p)->ant = novo; 
-     } 
+     if(*p!=NULL) { 
+         (*p)->ant = novo; 
+     } 
   
-     *p = novo; 
+     *p = novo; 
  }
 
-TNoDuplEnc *buscaListaDuplEnc(TNoDuplEnc *p, int elem){ 
-     TNoDuplEnc *paux; 
+TNoDuplEnc *buscaListaDuplEnc(TNoDuplEnc *p, int elem){ 
+     TNoDuplEnc *paux;
+
+	 printf("Chegou\n");
   
-     for(paux = p; paux != NULL; paux = paux->prox) { 
-         if(paux->chave == elem) { 
-             return paux; 
-         } 
-     } 
-  
-     return NULL; 
+     for(paux = p; paux != NULL; paux = paux->prox) { 
+		printf("Entrou\n");
+         if(paux->chave == elem) return paux;
+     } 
+
+	printf("Saiu\n");
+     return NULL; 
  }
 
-void imprimeListaDuplEnc(TNoDuplEnc *p) { 
-     TNoDuplEnc *paux; 
-     if(p==NULL) { 
-         printf("Lista vazia\n"); 
-         return; 
-     } 
+void imprimeListaDuplEnc(TNoDuplEnc *p) { 
+     TNoDuplEnc *paux; 
+     if(p==NULL) { 
+         printf("Lista vazia\n"); 
+         return; 
+     } 
   
-     for(paux = p; paux != NULL; paux = paux->prox) { 
-         printf("%d\n", paux->chave); 
-     } 
+     for(paux = p; paux != NULL; paux = paux->prox) { 
+         printf("%d\n", paux->chave); 
+     } 
  }
 
-void imprimeListaDuplEncInv(TNoDuplEnc *p) { 
-     TNoDuplEnc *paux; 
-     if(p==NULL) { 
-         return; 
-     } 
+void imprimeListaDuplEncInv(TNoDuplEnc *p) { 
+     TNoDuplEnc *paux = p; 
+     if(p==NULL) { 
+         return; 
+     }
+
+	 while(paux->prox != NULL) paux = paux->prox;
   
-     for(paux = p; paux != NULL; paux = paux->prox) { 
-         printf("%d\n", paux->chave); 
-     } 
+     while(paux != NULL) { 
+         printf("%d\n", paux->chave);
+		 paux = paux->ant;
+     } 
  }
 
-void desalocaDuplEnc(TNoDuplEnc **p) { 
-     TNoDuplEnc *aux = *p; 
-     if(p == NULL) { 
-         printf("Lista vazia\n"); 
-     } 
-     else { 
-         *p = (*p)->prox; 
-         if(*p != NULL) { 
-             (*p)->ant = NULL; 
-         } 
-         free(aux); 
-     } 
+void desalocaDuplEnc(TNoDuplEnc **p) { 
+     TNoDuplEnc *aux = *p; 
+     if(p == NULL) { 
+         printf("Lista vazia\n"); 
+     } 
+     else { 
+         *p = (*p)->prox; 
+         if(*p != NULL) { 
+             (*p)->ant = NULL; 
+         } 
+         free(aux); 
+     } 
  } 
 
 void main() {
@@ -660,61 +665,54 @@ void main() {
 			} break;
 
 			case 5: {
-TNo *prim = NULL,  *prim2 = NULL, *achou;
+				TNoDuplEnc *prim = NULL, *achou;
 
 				do {
 					printf("1 - Inserir no inicio\n");
 					printf("2 - Imprimir lista\n");
-printf("3 - Imprimir lista invertida\n");
+					printf("3 - Imprimir lista invertida\n");
 					printf("4 - Remover do inicio\n");
-					printf("5 - Inserir no final\n");
-					printf("6 - Buscar na lista\n");
-					printf("7 - Desalocar lista\n");
+					printf("5 - Buscar na lista\n");
+					printf("6 - Desalocar lista\n");
 					printf("0 - Sair\n");
 					scanf("%d", &op2);
 
 					switch(op2) {
 						case 1: {
-printf("Digite dois números: ");
-scanf("%d %d", num, num2);
-prim = insereListaDuplEnc(prim, num); 
-     insereListaDuplEnc2(&prim, num2); 
+							printf("Digite dois numeros: ");
+							scanf("%d %d", &num, &num2);
+							prim = insereListaDuplEnc(prim, num); 
+     						insereListaDuplEnc2(&prim, num2); 
 						} break;
 
 						case 2: {
-imprimeListaDuplEnc(prim); 
+							imprimeListaDuplEnc(prim); 
 						} break;
 
 						case 3: {
-imprimeListaDuplEncInv(prim);
+							imprimeListaDuplEncInv(prim);
 						} break;
 
 						case 4: {
-desalocaDuplEnc(&prim);
+							desalocaDuplEnc(&prim);
 						} break;
 
 						case 5: {
-
+							printf("Digite um numero: ");
+							scanf("%d", &num);
+     						achou = buscaListaDuplEnc(prim, num); 
+  
+     						if(achou) { 
+         						printf("%d encontado\n", achou->chave); 
+     						} 
+     						else { 
+         						printf("Elemento nao encontrado\n"); 
+     						} 
 						} break;
 
-case 6: {
-printf("Digite um número: ");
-scanf("%d", num);
-     achou = buscaListaDuplEnc(prim, num); 
-  
-     if(achou) { 
-         printf("%d encontado\n", achou->chave); 
-     } 
-     else { 
-         printf("Elemento não encontrado\n"); 
-     } 
-}
-
 						case 0:
-case 7: {
-while(prim!=NULL) { 
-         desalocaDuplEnc(&prim); 
-     }
+						case 6: {
+							while(prim!=NULL) desalocaDuplEnc(&prim);
 						} break;
 
 						default: {
@@ -734,6 +732,9 @@ while(prim!=NULL) {
 					printf("4 - Inserir na pilha\n");
 					printf("5 - Imprimir pilha\n");
 					printf("6 - Remover da pilha\n");
+					printf("7 - Fila para pilha\n");
+					printf("8 - Pilha para fila\n");
+					printf("9 - Desalocar tudo\n");
 					printf("0 - Sair\n");
 					scanf("%d", &op2);
 
@@ -751,8 +752,7 @@ while(prim!=NULL) {
 
 						case 3: {
 							removeFila(&inicio);
-							if(inicio==NULL)
-			   				fim = inicio; //fim=NULL;
+							if(inicio==NULL) fim = inicio; //fim=NULL;
 						} break;
 
 						case 4: {
@@ -770,7 +770,30 @@ while(prim!=NULL) {
 							else removePilha(&topo);
 						} break;
 
-						case 0: break;
+						case 7: {
+							if(inicio) {
+								inserePilha(inicio->chave, &topo);
+								removeFila(&inicio);
+								if(!inicio) fim = inicio;
+							}
+							else printf("Fila vazia\n");
+						} break;
+
+						case 8: {
+							if(topo) {
+								insereFila(&fim, topo->chave);
+								if(!inicio) inicio = fim;
+								removePilha(&topo);
+							}
+							else printf("Pilha vazia\n");
+						} break;
+
+						case 0: 
+						case 9: {
+							while(inicio != NULL) removeFila(&inicio);
+							if(inicio==NULL) fim = inicio; //fim=NULL;
+							while(topo != NULL) removePilha(&topo);
+						} break;
 
 						default: {
 							printf("Opcao invalida\n");
