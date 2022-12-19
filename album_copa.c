@@ -56,7 +56,7 @@ int *criarAlbum(int *pAlbum, int n) {
 	if (pAlbum == NULL) {
 		p = (int *) malloc(sizeof(int) * n);
 		if(p == NULL)
-			printf("Deu bosta :(\n");
+			printf("Deu pau :(\n");
 		else
 			printf("Álbum comprado com sucesso!\n");
 		return p;
