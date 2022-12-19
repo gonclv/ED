@@ -61,7 +61,7 @@ void imprimeLista(TNo *p) {
     }
 }
 
-void imprimeListaInv(TNo *p, int chave) {
+void imprimeListaInv(TNo *p) {
     TNo *paux;
     if(p==NULL) {
         return;
